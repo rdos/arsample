@@ -10,10 +10,13 @@ import java.util.TimeZone;
 
 final class TimerMan {
 
-    private final Callback mCallback;
+    private static final String PATTERN_FORMAT_TIME = "HH:mm:ss.SSS";
+    private static final long INTERVAL_ON_TICK__MILLIS = 111;
 
+    private final Callback mCallback;
     private CntDownTimer mCntDownTimer;
-    private long mCurrentSecs = 0;
+
+    private long mCurrentMillis = 0;
     private long mAddSecsCount = 0;
 
     private Calendar mCalendar;
@@ -34,20 +37,24 @@ final class TimerMan {
     }
 
     private void addSeconds(long seconds, boolean isAdditionSeconds) {
-        if ((mCurrentSecs + seconds) * 1000 <= 0) {
+        if ((mCurrentMillis + seconds * 1000) <= 0) {
             return;
         }
         if (isAdditionSeconds)  {
             mAddSecsCount += 1;
         }
-        mCurrentSecs += seconds;
+        mCurrentMillis += seconds * 1000;
         stopTimer();
-        startNewTimer(mCurrentSecs);
+        startNewTimer(mCurrentMillis);
+    }
+
+    public long getAddSecsCount() {
+        return mAddSecsCount;
     }
 
     public String getTimerStrFormat() {
-        //TODO: может нужно было бы сделать тут проще? ;)
-        getCalendar().setTimeInMillis(mCurrentSecs * 1000);
+        //TODO: да, может тут и нужно было сделать проще.? ;)
+        getCalendar().setTimeInMillis(mCurrentMillis);
         return getSimpleDateFormat().format(getCalendar().getTime());
     }
 
@@ -61,7 +68,7 @@ final class TimerMan {
 
     private SimpleDateFormat getSimpleDateFormat() {
         if (mSimpleDateFormat == null) {
-            mSimpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+            mSimpleDateFormat = new SimpleDateFormat(PATTERN_FORMAT_TIME, Locale.getDefault());
             mSimpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         }
         return mSimpleDateFormat;
@@ -79,27 +86,22 @@ final class TimerMan {
         mCntDownTimer.cancel();
     }
 
-    public long getAddSecsCount() {
-        return mAddSecsCount;
-    }
-
-
     private class CntDownTimer extends CountDownTimer {
 
-        private CntDownTimer(long secs) {
-            super(secs * 1000, 1000);
+        private CntDownTimer(long millis) {
+            super(millis, INTERVAL_ON_TICK__MILLIS);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            mCurrentSecs = millisUntilFinished / 1000;
+            mCurrentMillis = millisUntilFinished;
             //TODO: onTimerTick только после изменений??
             mCallback.onTimerTick();
         }
 
         @Override
         public void onFinish() {
-            mCurrentSecs = 0;
+            mCurrentMillis = 0;
             mCallback.onTimerTick();
             mCallback.onTimerFinish();
         }

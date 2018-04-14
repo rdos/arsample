@@ -10,3 +10,4 @@
 .externalNativeBuild
 /.idea/
 /gradle/
+*.*_tmp___

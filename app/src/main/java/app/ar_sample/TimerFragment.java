@@ -1,6 +1,5 @@
 package app.ar_sample;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,11 +37,13 @@ public class TimerFragment extends Fragment implements TimerMan.Callback, View.O
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        
         mTimerTextView = (TextView) view.findViewById(R.id.text_timer);
         mCountBtnPlusTextView = (TextView) view.findViewById(R.id.text_count_btn_plus);
         Button btnPlusSeconds = (Button) view.findViewById(R.id.btn_plus_seconds);
         btnPlusSeconds.setText(getString(R.string.btn_plus_seconds, ADD_SECONDS));
         btnPlusSeconds.setOnClickListener(this);
+
         setFragmentData();
         return view;
     }
@@ -50,6 +51,7 @@ public class TimerFragment extends Fragment implements TimerMan.Callback, View.O
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //TODO: mAlertDialog and mIsShowAlertDialog in 2 method.?
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false)
                 .setPositiveButton(getString(R.string.btn_plus_seconds, INIT_SECONDS), this)
