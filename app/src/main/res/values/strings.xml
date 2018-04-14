@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AR-sample</string>
-    <string name="btn_plus_seconds">btn_plus_seconds</string>
-    <string name="tv_btn_click_cnt">tv_btn_click_cnt</string>
+    <string name="btn_plus_seconds">Прибавить %d сек</string>
+    <string name="btn_close">Закрыть</string>
+    <string name="text_count_btn_plus">Кол-во нажатий на кнопку: %d</string>
 </resources>

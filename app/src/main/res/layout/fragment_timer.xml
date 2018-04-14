@@ -6,21 +6,22 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/tv_timer"
+        android:id="@+id/text_timer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aaaaaaaaaaaaaaaaaaaaa"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         style="@style/CustomText"/>
     <Button
-        android:id="@+id/btn_start_service"
+        android:id="@+id/btn_plus_seconds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_plus_seconds"
         style="@style/CustomText"/>
     <TextView
-        android:id="@+id/tv_btn_click_cnt"
+        android:id="@+id/text_count_btn_plus"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_btn_click_cnt"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         style="@style/CustomText"/>
 </LinearLayout>
